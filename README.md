@@ -25,15 +25,6 @@ python train.py --config baseline   # Baseline, configs/baseline.yaml
 
 Data: `.wav` files in `dataset/audio/` (or the folder set by `data: {audio_dir: ...}` in the config), resampled to 16 kHz. The paper trains one model per body impulse response. The first run extracts f0 (CREPE) and loudness into `preprocessed/`, and `python preprocess.py` runs this step alone. Weights are saved to `runs/<config>/final_state.pth`.
 
-The ablations of the paper are switches under `model:` in a config:
-
-- Masks (Table II): `bow_mask`, `brightness_mask`, `residuals_mask` (all `true` by default).
-- Brightness on the baseline (Table III): `brightness_tilt: true`, with `alpha_range: [-5, 5]` for the wider range.
-- 1/n initialisation of the baseline (Table IV): `init_harmonic_1_over_n: true`.
-- Capacity (Table V): `n_harmonic: 10` (baseline), `n_residuals: 40` (DDSP-Violin).
-- Harmonic Residual Loss (Tables I and V): `hrl_weight: 1.0` under `loss:`.
-- IIR body filter (Discussion): `resonance_type: ar` or `arma`, with `resonance_ar_order` and `resonance_ma_order`. `configs/ddsp_violin_arma.yaml` uses 64 AR and 64 MA coefficients.
-
 ## Evaluation
 
 `python evaluate.py --responses <folder> runs/<config> ...` prints the body-filter errors of the paper (MC-LSD, tilt and resonance error) against measured body responses, which are not included here. Each run is compared with the `.wav` response whose name appears in its folder name.
