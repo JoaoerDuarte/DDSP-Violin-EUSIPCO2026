@@ -1,0 +1,11 @@
+torch>=2.0
+torchaudio>=2.0
+numpy
+scipy
+librosa
+soundfile
+crepe
+tensorflow
+pyyaml
+tqdm
+tensorboard

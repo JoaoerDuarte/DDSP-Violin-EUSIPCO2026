@@ -1,0 +1,29 @@
+# DDSP-Violin with an ARMA body filter (64 AR and 64 MA coefficients).
+
+model:
+  sampling_rate: 16000
+  block_size: 64
+  signal_length: 64000
+  n_harmonic: 40
+  n_bands: 65
+  encoder:
+    rnn_channels: 512
+    z_dims: 16
+    z_time_steps: 125
+  decoder:
+    rnn_channels: 512
+    ch: 512
+    layers_per_stack: 3
+  physics_source: true
+  smooth_bow_notch: true
+  notch_width: 0.05
+  resonance_type: arma
+  resonance_ar_order: 64
+  resonance_ma_order: 64
+  resonance_window_size: 1600
+  resonance_max_reflection: 1.0
+
+loss:
+  mssl:
+    scales: [2048, 1024, 512, 256, 128, 64]
+    overlap: 0.75
