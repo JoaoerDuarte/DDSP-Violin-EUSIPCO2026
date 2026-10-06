@@ -7,8 +7,7 @@ from .core import overlap_and_add
 
 
 def window_impulse_response(impulse_response: torch.Tensor) -> torch.Tensor:
-    """Apply a Hann window to impulse responses from irfft and return them in causal form."""
-    impulse_response = torch.fft.fftshift(impulse_response, dim=-1)
+    """Apply a Hann window to zero-phase impulse responses from irfft and return them in causal form."""
     window = torch.hann_window(impulse_response.shape[-1], dtype=impulse_response.dtype,
                                device=impulse_response.device)
     window = torch.fft.fftshift(window, dim=-1)

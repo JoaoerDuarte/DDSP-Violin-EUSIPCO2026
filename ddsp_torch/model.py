@@ -88,7 +88,7 @@ class DDSP(nn.Module):
         params = self.decoder(**{F0_SCALED: scale_f0_hz(pitch), LD_SCALED: scale_db(loudness),
                                  Z: self.encoder(audio)})
         total_amplitude = exp_sigmoid(params[AMPS])
-        noise_magnitudes = exp_sigmoid(params[NOISE_MAGNITUDES] + self.noise_bias)
+        noise_magnitudes = exp_sigmoid(params[NOISE_MAGNITUDES] + self.noise_bias, threshold=0.0)
 
         if self.physics_source:
             outputs = self._source_controls(params, pitch)
